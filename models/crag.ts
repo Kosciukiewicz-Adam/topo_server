@@ -7,6 +7,9 @@ const cragSchema = new mongoose.Schema({
     description: {
         type: String,
     },
+    country: {
+        type: String,
+    },
     coordinates: {
         type: Array,
     },

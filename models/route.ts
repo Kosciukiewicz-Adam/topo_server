@@ -10,7 +10,7 @@ const routeSchema = new mongoose.Schema({
     grade: {
         type: String,
     },
-    lenght: {
+    length: {
         type: Number,
     },
     established: {
