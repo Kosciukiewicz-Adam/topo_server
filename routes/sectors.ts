@@ -1,9 +1,8 @@
 
-const Sector = require("../models/sector");
-const Route = require("../models/route");
-const express = require('express');
+import express from "express";
+const Sector = require("../models/sector.ts");
+const Route = require("../models/route.ts");
 const router = express.Router();
-import mongoose from "mongoose";
 
 router.get("/", async (req: any, res: any) => {
     try {

@@ -1,17 +1,7 @@
 
-const Route = require("../models/route");
-const express = require('express');
+import express from "express";
+const Route = require("../models/route.ts");
 const router = express.Router();
-import mongoose from "mongoose";
-
-// router.get("/", async (req: any, res: any) => {
-//     try {
-//         const routes = await Route.find();
-//         res.json(routes);
-//     } catch (err) {
-//         res.status(500).json({ message: err });
-//     }
-// });
 
 router.post("/", async (req: any, res: any) => {
     const route = new Route({

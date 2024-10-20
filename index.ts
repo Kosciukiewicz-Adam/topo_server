@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
-
-const express = require('express');
+import express from "express";
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -12,14 +11,14 @@ const port = process.env.PORT;
 mongoose.connect("mongodb+srv://topo-user:kCYQwsPsjnUevPWO@topo.u7rtq.mongodb.net/?retryWrites=true&w=majority&appName=Topo");
 const db = mongoose.connection;
 
-db.on("error", (error) => console.log(error));
+db.on("error", (error: any) => console.log(error));
 db.once("open", () => console.log("mongodb database connected"));
 
 app.use(express.json());
 
-const sectorsRouter = require("./routes/sectors");
-const routesRouter = require("./routes/routes");
-const cragsRouter = require("./routes/crags");
+const sectorsRouter = require("./routes/sectors.ts");
+const routesRouter = require("./routes/routes.ts");
+const cragsRouter = require("./routes/crags.ts");
 
 app.use("/sectors", sectorsRouter);
 app.use("/routes", routesRouter);
