@@ -11,7 +11,7 @@ const routeSchema = new mongoose.Schema({
         type: String,
     },
     length: {
-        type: Number,
+        type: String,
     },
     established: {
         type: String,
