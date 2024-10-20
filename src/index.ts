@@ -8,7 +8,8 @@ const app = express();
 const cors = require('cors')
 app.use(cors())
 const port = process.env.PORT;
-mongoose.connect("mongodb+srv://topo-user:kCYQwsPsjnUevPWO@topo.u7rtq.mongodb.net/?retryWrites=true&w=majority&appName=Topo");
+const mongodbUrl = process.env.MONGODB_URL;
+mongoose.connect(mongodbUrl || "");
 const db = mongoose.connection;
 
 db.on("error", (error: any) => console.log(error));
@@ -16,9 +17,9 @@ db.once("open", () => console.log("mongodb database connected"));
 
 app.use(express.json());
 
-const sectorsRouter = require("./routes/sectors.ts");
-const routesRouter = require("./routes/routes.ts");
-const cragsRouter = require("./routes/crags.ts");
+const sectorsRouter = require("./routes/sectors");
+const routesRouter = require("./routes/routes");
+const cragsRouter = require("./routes/crags");
 
 app.use("/sectors", sectorsRouter);
 app.use("/routes", routesRouter);

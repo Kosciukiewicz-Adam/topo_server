@@ -1,6 +1,6 @@
 
 import express from "express";
-const Route = require("../models/route.ts");
+const Route = require("../models/route");
 const router = express.Router();
 
 router.post("/", async (req: any, res: any) => {

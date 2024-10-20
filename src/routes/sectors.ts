@@ -1,7 +1,7 @@
 
 import express from "express";
-const Sector = require("../models/sector.ts");
-const Route = require("../models/route.ts");
+const Sector = require("../models/sector");
+const Route = require("../models/route");
 const router = express.Router();
 
 router.get("/", async (req: any, res: any) => {
