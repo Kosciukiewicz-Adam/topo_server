@@ -7,6 +7,12 @@ const router = express.Router();
 router.get("/", async (req: any, res: any) => {
     try {
         const sectors = await Sector.find();
+
+        for await (const sector of sectors) {
+            const sectorRoutes = await Route.find({ sectorId: sector._id })
+            sectors[sectors.indexOf(sector)].routesAmount = sectorRoutes.length;
+        }
+
         res.json(sectors);
     } catch (err) {
         res.status(500).json({ message: err });
@@ -28,18 +34,22 @@ router.post("/", async (req: any, res: any) => {
     }
 });
 
+router.get('/:sectorId/routes', getSectorRoutes, (req: any, res: any) => {
+    res.json(res.sectorRoutes);
+})
+
 async function getSectorRoutes(req: any, res: any, next: any) {
     let sectorRoutes
     try {
-        sectorRoutes = await Route.find({ sectorId: req.params.id })
+        sectorRoutes = await Route.find({ sectorId: req.params.sectorId })
         if (sectorRoutes == null) {
-            return res.status(404).json({ message: 'Cannot find roues for crag' })
+            return res.status(404).json({ message: 'Cannot find roues for sector' })
         }
     } catch (err: any) {
         return res.status(500).json({ message: err.message })
     }
 
-    res.cragRoutes = sectorRoutes
+    res.sectorRoutes = sectorRoutes;
     next()
 }
 

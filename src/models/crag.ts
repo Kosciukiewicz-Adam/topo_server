@@ -16,6 +16,9 @@ const cragSchema = new mongoose.Schema({
     images: [{
         type: String
     }],
+    routesAmount: {
+        type: Number,
+    }
 })
 
 module.exports = mongoose.model("Crag", cragSchema);

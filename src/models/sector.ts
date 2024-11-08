@@ -13,6 +13,9 @@ const sectorSchema = new mongoose.Schema({
     cragId: {
         type: mongoose.Types.ObjectId,
     },
+    routesAmount: {
+        type: Number,
+    }
 })
 
 module.exports = mongoose.model("Sector", sectorSchema);

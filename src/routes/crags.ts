@@ -8,6 +8,12 @@ const Crag = require("../models/crag");
 router.get("/", async (req: any, res: any) => {
     try {
         const crags = await Crag.find();
+
+        for await (const crag of crags) {
+            const cragRoutes = await Route.find({ cragId: crag._id })
+            crags[crags.indexOf(crag)].routesAmount = cragRoutes.length;
+        }
+
         res.json(crags);
     } catch (err) {
         res.status(500).json({ message: err });
@@ -46,7 +52,11 @@ router.post("/", async (req: any, res: any) => {
 async function getCrag(req: any, res: any, next: any) {
     let crag
     try {
-        crag = await Crag.findById(req.params.cragId)
+        crag = await Crag.findById(req.params.cragId);
+
+        const cragRoutes = await Route.find({ cragId: crag._id })
+        crag.routesAmount = cragRoutes.length;
+
         if (crag == null) {
             return res.status(404).json({ message: 'Cannot find crag' })
         }
@@ -79,6 +89,11 @@ async function getCragSectors(req: any, res: any, next: any) {
         cragSectors = await Sector.find({ cragId: req.params.cragId })
         if (cragSectors == null) {
             return res.status(404).json({ message: 'Cannot find sectors for crag' })
+        }
+
+        for await (const sector of cragSectors) {
+            const sectorRoutes = await Route.find({ sectorId: sector._id })
+            cragSectors[cragSectors.indexOf(sector)].routesAmount = sectorRoutes.length;
         }
     } catch (err: any) {
         return res.status(500).json({ message: err.message })
