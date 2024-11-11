@@ -17,10 +17,12 @@ db.once("open", () => console.log("mongodb database connected"));
 
 app.use(express.json());
 
+const festivalsRouter = require("./routes/festivals");
 const sectorsRouter = require("./routes/sectors");
 const routesRouter = require("./routes/routes");
 const cragsRouter = require("./routes/crags");
 
+app.use("/festivals", festivalsRouter);
 app.use("/sectors", sectorsRouter);
 app.use("/routes", routesRouter);
 app.use("/crags", cragsRouter);
