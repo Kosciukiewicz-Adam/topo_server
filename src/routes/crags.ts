@@ -54,8 +54,10 @@ async function getCrag(req: any, res: any, next: any) {
     try {
         crag = await Crag.findById(req.params.cragId);
 
-        const cragRoutes = await Route.find({ cragId: crag._id })
-        crag.routesAmount = cragRoutes.length;
+        if (crag) {
+            const cragRoutes = await Route.find({ cragId: crag._id })
+            crag.routesAmount = cragRoutes.length;
+        }
 
         if (crag == null) {
             return res.status(404).json({ message: 'Cannot find crag' })
