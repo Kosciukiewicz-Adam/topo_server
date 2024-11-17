@@ -16,7 +16,7 @@ router.get("/", async (req: any, res: any) => {
 
         res.json(crags);
     } catch (err) {
-        res.status(500).json({ message: err });
+        res.sendStatus(500);
     }
 });
 
@@ -45,7 +45,7 @@ router.post("/", async (req: any, res: any) => {
         const newCrag = await crag.save();
         res.status(201).json(newCrag);
     } catch (err: any) {
-        res.status(400).json({ message: err.message });;
+        res.sendStatus(400);
     }
 });
 
@@ -60,10 +60,10 @@ async function getCrag(req: any, res: any, next: any) {
         }
 
         if (crag == null) {
-            return res.status(404).json({ message: 'Cannot find crag' })
+            return res.sendStatus(404)
         }
     } catch (err: any) {
-        return res.status(500).json({ message: err.message })
+        return res.sendStatus(500)
     }
 
     res.crag = crag
@@ -75,10 +75,10 @@ async function getCragRoutes(req: any, res: any, next: any) {
     try {
         cragRoutes = await Route.find({ cragId: req.params.cragId })
         if (cragRoutes == null) {
-            return res.status(404).json({ message: 'Cannot find roues for crag' })
+            return res.sendStatus(404)
         }
     } catch (err: any) {
-        return res.status(500).json({ message: err.message })
+        return res.sendStatus(500)
     }
 
     res.cragRoutes = cragRoutes
@@ -90,7 +90,7 @@ async function getCragSectors(req: any, res: any, next: any) {
     try {
         cragSectors = await Sector.find({ cragId: req.params.cragId })
         if (cragSectors == null) {
-            return res.status(404).json({ message: 'Cannot find sectors for crag' })
+            return res.sendStatus(404)
         }
 
         for await (const sector of cragSectors) {
@@ -98,7 +98,7 @@ async function getCragSectors(req: any, res: any, next: any) {
             cragSectors[cragSectors.indexOf(sector)].routesAmount = sectorRoutes.length;
         }
     } catch (err: any) {
-        return res.status(500).json({ message: err.message })
+        return res.sendStatus(500)
     }
 
     res.cragSectors = cragSectors

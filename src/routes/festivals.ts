@@ -8,7 +8,7 @@ router.get("/", async (req: any, res: any) => {
         const festivals = await Festival.find();
         res.json(festivals);
     } catch (err) {
-        res.status(500).json({ message: err });
+        res.sendStatus(500);
     }
 });
 

@@ -17,7 +17,7 @@ router.post("/", async (req: any, res: any) => {
         const newRoute = await route.save();
         res.status(201).json(newRoute);
     } catch (err: any) {
-        res.status(400).json({ message: err.message });;
+        res.sendStatus(400);
     }
 });
 
